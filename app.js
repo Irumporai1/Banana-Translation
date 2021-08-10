@@ -1,5 +1,25 @@
-var  username=prompt("ENter a username")
+var btnTranslate = document.querySelector("#btn-translate");
+var txtInput = document.querySelector("#txt-input");
+var outputDiv = document.querySelector("#output");
 
-var welcomeMessage="this script works"+username
+var url="https://api.funtranslations.com/translate/minion.json"
 
-alert(welcomeMessage)
+function generateURL(txt){
+
+    return url + "?text=" + txt;
+
+}
+
+
+function clickHandler() {
+    var text=txtInput.value;
+    fetch(generateURL(text))
+    .then(response => response.json())
+    .then(json => {
+       var translatedText= json.contents.translated;
+       outputDiv.innerText= translatedText;
+    })
+    
+};
+
+btnTranslate.addEventListener("click", clickHandler);
